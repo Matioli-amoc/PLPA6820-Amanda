@@ -1,5 +1,6 @@
 # Coding notes: Data Visualization
 # Amanda Matioli O. Chaves
+
 # If you dont have ggplot installed:
 install.packages("tidyverse")
 
