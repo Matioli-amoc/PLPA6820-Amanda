@@ -134,3 +134,8 @@ head(Tips)
 
 A- To identify if the data were read correctly i use the command "head" to look into the file. I also look at the length of the file to check if it is the same as the original and i can also press to open the file in the environment pane and look trough it.
 
+6.	2 pts. Annotate your code, commit the changes and push it to your GitHub repository you created last class
+```{r}
+# https://github.com/Matioli-amoc/PLPA6820-Amanda.git
+```
+
