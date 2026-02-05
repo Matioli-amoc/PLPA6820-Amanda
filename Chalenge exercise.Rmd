@@ -11,23 +11,23 @@ This assignment is intended to introduce you to R, RStudio, and integration with
 1.	5 pts. Explain the following things about R and Rstudio: 
 o	Where do you type code? 
 
-A- In the R source portion, i can do that by opening a new R script file. I can also type on the console portion, but is not recommended, once in the script portion i can do any modifications.
+A- In the R source pane, i can do that by opening a new R script file. I can also type on the console portion, but is not recommended because in the script portion you can make any edits and reuse the code more easily.
 
 o	Where is the output of the code? 
 
-A- In the console portion.
+A- In the console pane.
 
 o	Where do plots show up? 
 
-A- In the plot section in the right botton portion of the terminal
+A- In the plot section in the right bottom portion of the RStudio.
 
 o	What is a global environment? 
 
-A- Is the environment where all the objects and setted data are storage.
+A- Is the environment where all object, variables, and data are currently loaded and stored.
 
 o	How do you get help for a function through R studio? 
 
-A- You can go to the windows "help" (usually in the right connor of the R) or type help(name of the source)
+A- You can go to the "help tab" (usually in the right bottom of the R) or type help(name of the source).
 
 o	What is an R package? 
 
@@ -35,7 +35,7 @@ A- They are a collection of functions and tools that helps extending R capabilit
 
 o	What is a function? 
 
-A- Its like a mechanism to calculate any object that we may want to. Its a code that performance a specific task.
+A- Its like a mechanism to calculate any object that we may want to. Its a code that performs a specific task.
 
 o	How do you find the installed and loaded packages? 
 
@@ -43,7 +43,7 @@ A- In the "Packages' portion of the R (The same place as the Plot and Help porti
 
 o	What is a working directory, and how do you find it? 
 
-A- Its the place that you are extracting your input files and also the place that will be your outputs and save environment.
+A- It`s the folder where R reads the input files and saves the output files.
 You can find it by using:
 ```{r}
 getwd()
@@ -56,7 +56,7 @@ A- The relative file path would be the directory or subdirectory that you are at
 
 2.	2 pts. Explain the steps to start a new R project connected to a GitHub repository.
 
-A- You first open a new project and went to tools, in the global options you set the Git/SVN for the path in your Git executable portion and add my SSH key from my GitHub repository.
+A- You first create a new repository on GitHub, then you open a new project in R Studio and went to tools, in the global options or in the version control, you paste your repository URL or SSH key and choose the local directory to create the project. This will clone the GitHub repository and link it with R. 
 
 3.	3 pts. Please explain the different data classes and how they are similar and different from each other. 
 
@@ -68,7 +68,7 @@ A- An vector is an collection of values of the same data type (numeric, characte
 B- A dataframe is a table that can have different data types in different columns.
 C- A matrix is a structure where all values of the same data type are arranged in rows and columns.
 
-Similarities: They both store data; matrices and dataframes are two-dimensional while vectors are one-dimensional; matrices need to have the same data type (numerical, character) while dataframes allows differents data types.
+Similarities and differences: They both store data; matrices and dataframes are two-dimensional while vectors are one-dimensional; matrices need to have the same data type (numerical, character) while dataframes allows differents data types.
 
 4.	10 pts. Complete all tasks in an R script and push it to GitHub.
 
