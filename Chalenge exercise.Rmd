@@ -1,0 +1,136 @@
+---
+title: "Introduction to R- Coding Challenge 1"
+Subtitle: Amanda Matioli
+output:
+  html_document:
+    df_print: paged
+---
+
+This assignment is intended to introduce you to R, RStudio, and integration with GitHub, as well as help you practice some R coding. You may work in pairs. When submitting the assignment on Canvas, please put both names on the assignment. 
+
+1.	5 pts. Explain the following things about R and Rstudio: 
+o	Where do you type code? 
+
+A- In the R source portion, i can do that by opening a new R script file. I can also type on the console portion, but is not recommended, once in the script portion i can do any modifications.
+
+o	Where is the output of the code? 
+
+A- In the console portion.
+
+o	Where do plots show up? 
+
+A- In the plot section in the right botton portion of the terminal
+
+o	What is a global environment? 
+
+A- Is the environment where all the objects and setted data are storage.
+
+o	How do you get help for a function through R studio? 
+
+A- You can go to the windows "help" (usually in the right connor of the R) or type help(name of the source)
+
+o	What is an R package? 
+
+A- They are a collection of functions and tools that helps extending R capabilities.
+
+o	What is a function? 
+
+A- Its like a mechanism to calculate any object that we may want to. Its a code that performance a specific task.
+
+o	How do you find the installed and loaded packages? 
+
+A- In the "Packages' portion of the R (The same place as the Plot and Help portion). Or i can just type installed.packages().
+
+o	What is a working directory, and how do you find it? 
+
+A- Its the place that you are extracting your input files and also the place that will be your outputs and save environment.
+You can find it by using:
+```{r}
+getwd()
+```
+
+o	What is a relative file path and how is it different than an absolute file path? 
+
+A- The relative file path would be the directory or subdirectory that you are at that moment, without the full description as your home directory. Its better for reproducibility.
+
+
+2.	2 pts. Explain the steps to start a new R project connected to a GitHub repository.
+
+A- You first open a new project and went to tools, in the global options you set the Git/SVN for the path in your Git executable portion and add my SSH key from my GitHub repository.
+
+3.	3 pts. Please explain the different data classes and how they are similar and different from each other. 
+
+o	Vector
+o	Dataframe
+o	Matrix
+
+A- An vector is an collection of values of the same data type (numeric, character, etc)
+B- A dataframe is a table that can have different data types in different columns.
+C- A matrix is a structure where all values of the same data type are arranged in rows and columns.
+
+Similarities: They both store data; matrices and dataframes are two-dimensional while vectors are one-dimensional; matrices need to have the same data type (numerical, character) while dataframes allows differents data types.
+
+4.	10 pts. Complete all tasks in an R script and push it to GitHub.
+
+o	Create a vector named 'z' with the values 1 to 200
+```{r}
+z <- c(1:200)
+```
+
+o	Print the mean and standard deviation of z on the console
+```{r}
+mean(z)
+sd(z)
+```
+o	Create a logical vector named zlog that is 'TRUE' for z values greater than 30 and 'FALSE' otherwise.
+```{r}
+zlog <- z > 30
+
+zlog
+```
+
+o	Make a dataframe with z and zlog as columns. Name the dataframe zdf
+```{r}
+zdf <- data.frame(z, zlog)
+
+```
+
+o	Change the column names in your new dataframe to equal “zvec” and “zlogic”
+```{r}
+colnames(zdf) <- c("zvec", "zlogic")
+```
+
+o	Make a new column in your dataframe equal to zvec squared (i.e., z2). Call the new column zsquared. 
+```{r}
+zdf$zsquared = z^2
+
+zdf
+```
+o	Subset the dataframe with and without the subset() function to only include values of zsquared greater than 10 and less than 100 
+```{r}
+zdf2 <- subset(zdf, zsquared > 10 & zsquared < 100)
+zdf.nosubset <- zdf[zdf$zsquared > 10 & zdf$zsquared < 100,]
+```
+
+o	Subset the zdf dataframe to only include the values on row 26
+```{r}
+zdf.26 <- subset(zdf, row(zdf) == 26)
+```
+
+o	Subset the zdf dataframe to only include the values in the column zsquared in the 180th row.
+```{r}
+zdf.180 <- subset(zdf, row(zdf) == 180, select = zsquared)
+# zdf[180, "zsquared"] easy way to find
+```
+```{r}
+getwd()
+```
+5.	3 pts. Download the Tips.csv file from Canvas. Use the read.csv() function to read the data into R using a relative file path  and so that the missing values are properly coded. **Note the missing values are reported in the data as a period (i.e., “.”). How do you know the data were read correctly? 
+
+```{r}
+Tips <- read.csv("TipsR.csv", na.strings = ".")
+head(Tips)
+```
+
+A- To identify if the data were read correctly i use the command "head" to look into the file. I also look at the length of the file to check if it is the same as the original and i can also press to open the file in the environment pane and look trough it.
+
