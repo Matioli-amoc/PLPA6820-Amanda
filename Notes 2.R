@@ -1,3 +1,5 @@
+# Coding notes: Data Visualization
+# Amanda Matioli O. Chaves
 # If you dont have ggplot installed:
 install.packages("tidyverse")
 
@@ -57,3 +59,6 @@ ggplot(bull.richness, aes(x = GrowthStage, y = richness, group = Fungicide, colo
   stat_summary(fun.data = mean_se, geom = "errorbar") +
   scale_color_manual(values = c("#0C2340", "#E87722")) +
   facet_wrap(~Treatment*Crop, scales = "free") # scales makes the graph more "arranged" and fitting in the plot
+
+# Repository
+# https://github.com/Matioli-amoc/PLPA6820-Amanda.git
