@@ -1,0 +1,160 @@
+---
+title: "Coding challenge II"
+Subtitle: "Amanda Matioli"
+output:
+  html_document:
+    df_print: paged
+---
+
+Introduction to visualization in R – 25 pts
+
+PLEASE READ THIS BEFORE CONTINUING
+
+This assignment is designed to help you visualize data in R and practice your R coding skills. You may collaborate with a partner to enhance your learning experience. Please ensure the following:
+
+•	Code Submission: Submit your R code in an .R or .Rmd file by sharing a link to your GitHub repository.
+
+Data description
+
+Here, we will analyze mycotoxin data collected from wheat heads grown in the greenhouse inoculated with Fusarium graminearum (Fg) with or without fungal endophytes to protect against Fg. The experiment was performed by inoculating the heads with Fg (positive control), Fg + 1 of 3 endophytes (Fg + 40, Fg + 70, or Fg + 37), and the non-treated control (NTC). Therefore, the experiment was five treatments with 6-10 technical replicates and three experimental replicates. The authors quantified the parts per million (ppm) of mycotoxins Deoxynivalenol (DON) and the variant 15ADON from the wheat grain, and this is your primary response variable. In other words, we are interested in knowing if the fungal endophytes could reduce the concentration of DON on wheat heads. This was done across two wheat cultivars, a winter wheat variety, Ambassador, and a spring wheat variety, Wheaton. These data are published here: 
+
+•	Noel, Z.A., Roze, L.V., Breunig, M., Trail, F. 2022. Endophytic fungi as promising biocontrol agent to protect wheat from Fusarium graminearum head blight. Plant Disease. https://doi.org/10.1094/PDIS-06-21-1253-RE
+•	The following github repository is associated with this paper: https://github.com/noelzach/EndophyteBiocontrol
+
+1.	5 pts. Explain the following concepts about ggplot 
+
+a.	What three elements do you need to produce a ggplot?
+
+A- Aesthetics, Data and Layers
+
+b.	What is a geom?
+
+A- Is a visual representation of the data points in the plot.
+
+c.	What is a facet? 
+
+A- is a function that creates subplots based in different variables, facilitating the visualization of different plots for each group.
+
+d.	Explain the concept of layering. 
+
+A- Layering is adding multiple geoms or annotations on top of a plot. 
+
+e.	Where do you add x and y variables and map different shapes, colors, and other attributes to the data? 
+
+A- Inside the aesthetic function "aes()", usually in the main call.
+
+2.	4 pts. Make a boxplot using ggplot with DON as the y variable, treatment as the x variable, and color mapped to the wheat cultivar. Change the y label to “DON (ppm)” and make the x label blank.
+
+Prepare data and plot DON levels by Treatment & Cultivar, dont forget to use "na.strings = 'na'" to upload the file.
+
+Error: I was uploading the old version of the file, that`s why it was not working.
+
+Use the cbbPalete to set the colors and fills.
+
+```{r}
+library (ggplot2)
+mycotoxin <- read.csv("MycotoxinData.csv", na.strings = 'na')
+mycotoxin$Treatment <- as.factor(mycotoxin$Treatment)
+mycotoxin$Treatment <- factor(mycotoxin$Treatment, levels = c("Fg", "Fg + 37", "Fg + 40", "Fg + 70", "NTC"))
+mycotoxin$Cultivar <- as.factor(mycotoxin$Cultivar)
+mycotoxin$Cultivar <- factor(mycotoxin$Cultivar, levels = c("Ambassador","Wheaton"))
+mycotoxin$DON <- as.numeric(mycotoxin$DON)
+
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+ggplot(mycotoxin, aes(x = Treatment, y = DON, colour = Cultivar)) +
+  geom_boxplot(position = position_dodge())+
+  scale_color_manual(values = cbbPalette)+
+  theme_classic()+
+  xlab("")+
+  ylab("DON(ppm)")
+```
+
+
+3.	4 pts. Now convert this data into a bar chart with standard-error error bars using the stat_summary() command. (hint: use position = dodge)
+
+ Add error bars representing the standard error of the mean
+ Manually set colors and fill for the variables (use cbbPalette with the set for the wheat Cultivar)
+
+```{r}
+ggplot(mycotoxin, aes(x = Treatment, y = DON, fill = Cultivar))+
+  stat_summary(fun = mean, geom = "bar", position = "dodge")+
+  stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge", width = 0.5)+
+  scale_color_manual(values = c(cbbPalette[[2]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[1]], cbbPalette[[2]]))+
+  theme_classic()+
+  xlab("")+
+  ylab("DON(ppm)")
+```
+
+
+4.	3 pts. Add points to the foreground of the boxplot and bar chart you made in questions 2 & 3 that show the distribution of points. Set the shape = 21 and the outline color black (hint: use jitter_dodge). 
+
+ Plot DON by Treatment & Cultivar with points
+
+```{r}
+# Boxplot with points
+ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
+  geom_boxplot() +
+  geom_jitter(shape = 21, position = position_jitterdodge()) +
+  scale_color_manual(values = c(cbbPalette[[2]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[1]], cbbPalette[[2]]))+
+  theme_classic()+
+  xlab("")+
+  ylab("DON(ppm")
+
+# Barplot with mean, error bars, and overlaid points
+ggplot(mycotoxin, aes(x = Treatment, y = DON, colour = Cultivar, fill = Cultivar)) +
+  stat_summary(fun = mean, geom = "bar", position = position_dodge(width = 0.8)) +
+  stat_summary(fun.data = mean_se, geom = "errorbar", 
+               position = position_dodge(width = 0.9), width = 0.6) +
+  geom_jitter(shape = 21, position = position_jitterdodge()) +
+  scale_color_manual(values = c(cbbPalette[[2]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[1]], cbbPalette[[2]]))+
+  theme_classic()+
+  xlab("")+
+  ylab("DON(ppm")
+  
+
+```
+
+
+5.	2 pts. Add a facet to the plots based on cultivar.
+
+```{r}
+ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  scale_color_manual(values = c(cbbPalette[[2]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[1]], cbbPalette[[2]]))+
+  theme_classic()+
+  xlab("")+
+  ylab("DON(ppm)")
+  
+```
+
+
+6.	3 pts. Add transparency to the points so you can still see the boxplot or bar in the background. 
+
+To change the colour for the different facets, we can just change the order of the colors.
+
+```{r}
+ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.2,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[2]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[1]], cbbPalette[[2]]))+
+  xlab("")+
+  ylab("DON(ppm")
+```
+
+
+7.	4 pts. Annotate your code and push it to github. 
+ 
+ Repository
+ https://github.com/Matioli-amoc/PLPA6820-Amanda.git
