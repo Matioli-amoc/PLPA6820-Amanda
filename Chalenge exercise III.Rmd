@@ -63,8 +63,9 @@ DON.plot <- ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill
   geom_boxplot() +
   geom_jitter(shape = 21, color = "black", alpha = 0.6,
               position = position_jitterdodge()) +
-  facet_wrap(~Cultivar) +
+  facet_wrap(~Cultivar, scales = "free") +
   theme_classic()+
+  theme(axis.text.x = element_text(size = 8, angle = 45, hjust = 1))+
   scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
   scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
   xlab("")+
@@ -75,8 +76,9 @@ X15ADON.plot <- ggplot(mycotoxin, aes(x = Treatment, y = X15ADON, color = Cultiv
   geom_boxplot() +
   geom_jitter(shape = 21, color = "black", alpha = 0.6,
               position = position_jitterdodge()) +
-  facet_wrap(~Cultivar) +
+  facet_wrap(~Cultivar, scales = "free") +
   theme_classic()+
+  theme(axis.text.x = element_text(size = 8, angle = 45, hjust = 1))+
   scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
   scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
   xlab("")+
@@ -87,8 +89,9 @@ MassperSeed_mg.plot <- ggplot(mycotoxin, aes(x = Treatment, y = MassperSeed_mg, 
   geom_boxplot() +
   geom_jitter(shape = 21, color = "black", alpha = 0.6,
               position = position_jitterdodge()) +
-  facet_wrap(~Cultivar) +
+  facet_wrap(~Cultivar, scales = "free") +
   theme_classic()+
+  theme(axis.text.x = element_text(size = 8, angle = 45, hjust = 1))+
   scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
   scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
   xlab("")+
