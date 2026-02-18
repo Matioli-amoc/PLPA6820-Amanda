@@ -25,6 +25,20 @@ d.	The plot should use a classic theme
 e.	The plot should also be faceted by Cultivar
 
 ```{r}
+library(tidyverse)
+mycotoxin <- read_csv("MycotoxinData.csv", na = "na")
+colnames(mycotoxin)
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+
+```{r}
+
+mycotoxin$Treatment <- as.factor(mycotoxin$Treatment)
+mycotoxin$Cultivar <- as.factor(mycotoxin$Cultivar)
+mycotoxin$Cultivar <- factor(mycotoxin$Cultivar, levels = c("Ambassador","Wheaton"))
+mycotoxin$DON <- as.numeric(mycotoxin$DON)
+
 mycotoxin$Treatment <- factor(mycotoxin$Treatment, levels = c("Fg", "Fg + 37", "Fg + 40", "Fg + 70", "NTC"))
 ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
   geom_boxplot() +
@@ -32,10 +46,11 @@ ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)
               position = position_jitterdodge()) +
   facet_wrap(~Cultivar) +
   theme_classic()+
+  theme(axis.text.x = element_text(size = 8, angle = 45, hjust = 1))+
   scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
   scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
   xlab("")+
-  ylab("DON(ppm")
+  ylab("DON(ppm)")
 ```
 
 2.	4pts. Change the factor order level so that the treatment “NTC” is first, followed by “Fg”, “Fg + 37”, “Fg + 40”, and “Fg + 70. 
@@ -48,6 +63,7 @@ ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)
               position = position_jitterdodge()) +
   facet_wrap(~Cultivar) +
   theme_classic()+
+  theme(axis.text.x = element_text(size = 8, angle = 45, hjust = 1))+
   scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
   scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
   xlab("")+
@@ -116,7 +132,9 @@ Three.plot <- ggarrange(
 )
 Three.plot
 ```
+
 5.	5pts. Use geom_pwc() to add t.test pairwise comparisons to the three plots made above. Save each plot as a new R object, and combine them again with ggarange as you did in question 4. Your final plot should look something like this. 
+
 
 ```{r}
  plot1 <- DON.plot+
