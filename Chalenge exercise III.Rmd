@@ -1,0 +1,146 @@
+---
+title: "Code challenging III- Amanda"
+output:
+  html_document:
+    df_print: paged
+---
+
+This assignment is designed to help you visualize data in R and practice your R coding skills. You may collaborate with a partner to enhance your learning experience. Please ensure the following:
+
+•	Submission: Each person should submit their own assignment
+•	Answers: Provide written answers to all questions in an .R or .Rmd document
+•	Code Submission: Submit your R code in an .R or .Rmd file by sharing a link to your GitHub repository.
+
+Data description
+
+Here, we will analyze mycotoxin data collected from wheat heads grown in the greenhouse inoculated with Fusarium graminearum (Fg) with or without fungal endophytes to protect against Fg. The experiment was performed by inoculating the heads with Fg (positive control), Fg + 1 of 3 endophytes (Fg + 40, Fg + 70, or Fg + 37), and the non-treated control (NTC). Therefore, the experiment was five treatments with 6-10 technical replicates and three experimental replicates. The authors quantified the parts per million (ppm) of mycotoxins Deoxynivalenol (DON) and the variant 15ADON from the wheat grain, and this is your primary response variable. In other words, we are interested in knowing if the fungal endophytes could reduce the concentration of DON on wheat heads. This was done across two wheat cultivars, a winter wheat variety, Ambassador, and a spring wheat variety, Wheaton. These data are published here: 
+
+•	Noel, Z.A., Roze, L.V., Breunig, M., Trail, F. 2022. Endophytic fungi as promising biocontrol agent to protect wheat from Fusarium graminearum head blight. Plant Disease. https://doi.org/10.1094/PDIS-06-21-1253-RE
+
+1.	5pts. Using ggplot, create a boxplot of DON by Treatment so that the plot looks like the image below.
+a.	Jitter points over the boxplot and fill the points and boxplots Cultivar with two colors from the cbbPallete introduced last week. 
+b.	Change the transparency of the jittered points to 0.6. 
+c.	The y-axis should be labeled "DON (ppm)", and the x-axis should be left blank. 
+d.	The plot should use a classic theme
+e.	The plot should also be faceted by Cultivar
+
+```{r}
+mycotoxin$Treatment <- factor(mycotoxin$Treatment, levels = c("Fg", "Fg + 37", "Fg + 40", "Fg + 70", "NTC"))
+ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
+  xlab("")+
+  ylab("DON(ppm")
+```
+
+2.	4pts. Change the factor order level so that the treatment “NTC” is first, followed by “Fg”, “Fg + 37”, “Fg + 40”, and “Fg + 70. 
+
+```{r}
+mycotoxin$Treatment <- factor(mycotoxin$Treatment, levels = c("NTC","Fg", "Fg + 37", "Fg + 40", "Fg + 70"))
+ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
+  xlab("")+
+  ylab("DON(ppm)")
+```
+
+3.	5pts. Change the y-variable to plot X15ADON and MassperSeed_mg. The y-axis label should now be “15ADON” and “Seed Mass (mg)”. Save plots made in questions 1 and 3 into three separate R objects.
+
+I used geom_jitter(color="black"). Thank you for the feedback in code challenging II.
+
+```{r}
+DON.plot <- ggplot(mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
+  xlab("")+
+  ylab("DON(ppm)")
+DON.plot
+
+X15ADON.plot <- ggplot(mycotoxin, aes(x = Treatment, y = X15ADON, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
+  xlab("")+
+  ylab("15ADON")
+X15ADON.plot
+
+MassperSeed_mg.plot <- ggplot(mycotoxin, aes(x = Treatment, y = MassperSeed_mg, color = Cultivar, fill = Cultivar))+
+  geom_boxplot() +
+  geom_jitter(shape = 21, color = "black", alpha = 0.6,
+              position = position_jitterdodge()) +
+  facet_wrap(~Cultivar) +
+  theme_classic()+
+  scale_color_manual(values = c(cbbPalette[[1]], cbbPalette[[1]]))+
+  scale_fill_manual(values = c(cbbPalette[[3]], cbbPalette[[4]]))+
+  xlab("")+
+  ylab("Seed Mass (mg)")
+MassperSeed_mg.plot
+
+```
+
+4.	5pts. Use ggarrange function to combine all three figures into one with three columns and one row. Set the labels for the subplots as A, B and C. Set the option common.legend = T within ggarage function. What did the common.legend option do?
+a.	HINT: I didn’t specifically cover this in the tutorial, but you can go to the help page for the ggarange function to figure out what the common.legend option does and how to control it. 
+
+```{r}
+library(ggpubr)
+Three.plot <- ggarrange(
+  DON.plot,
+  X15ADON.plot,
+  MassperSeed_mg.plot,
+  labels = c("A","B","C"),
+  nrow = 1,
+  ncol = 3,
+  common.legend = T
+)
+Three.plot
+```
+5.	5pts. Use geom_pwc() to add t.test pairwise comparisons to the three plots made above. Save each plot as a new R object, and combine them again with ggarange as you did in question 4. Your final plot should look something like this. 
+
+```{r}
+ plot1 <- DON.plot+
+ geom_pwc(aes(group = Treatment), method = "t.test", label = "p.adj.format")
+
+ plot2<- X15ADON.plot+
+  geom_pwc(aes(group = Treatment), method = "t.test", label = "p.adj.format")
+
+  plot3 <- MassperSeed_mg.plot+
+  geom_pwc(aes(group = Treatment), method = "t.test", label = "p.adj.format")
+  
+  
+library(ggpubr)
+Final.plot <- ggarrange(
+  plot1,
+  plot2,
+  plot3,
+  labels = c("A","B","C"),
+  nrow = 1,
+  ncol = 3,
+  common.legend = T
+)
+Final.plot
+
+```
+
+6.	1 pt. Annotate your code, push it to GitHub. Provide me a link to your GitHub
+
+ Repository
+ https://github.com/Matioli-amoc/PLPA6820-Amanda.git
