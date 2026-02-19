@@ -1,0 +1,104 @@
+---
+title: "Markdown Annotation"
+author: "Amanda Chaves"
+date: "2026-02-18"
+output: 
+md_document:
+  variant: gfm
+html_document:
+  toc: true
+  toc_float: true
+word_document:
+pdf_document:
+---
+Toc: true -> Transform the sections into an summary with links.
+
+toc_float -> Transform the sections into an summary in the side of the html file.
+
+
+This is an example of R code:
+```{r R code Example, include=TRUE, echo=FALSE}
+#{r R code Example, include=TRUE, echo=FALSE} I can use it to display options
+#We can set chunks to show up in the resulting document by setting some options like include = TRUE or FALSE
+#this is R code
+summary(mtcars)
+```
+
+This is how to include figures
+```{r Include Figures}
+library(ggplot2)
+data("mtcars")
+ggplot(mtcars, aes(x = wt, y = mpg))+
+  geom_point()
+
+```
+
+We can include code and plots.
+```{r}
+data("mtcars")
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(color = wt)) +
+  xlab("Weight") + 
+  ylab("Miles per gallon") +
+  scale_colour_gradient(low = "forestgreen", high = "black")
+```
+
+R markdown formatting options
+
+# First level header
+
+*This text is italics*
+**This text is bold**
+
+## Second level header
+
+To list:
+
+- one item
+- another item
+- tomato juice
+  - i dont like tomato juice (subitem)
+ 
+Other option:
+
+1. one item
+2. another item
+   - one subitem
+
+
+### Third level header - LINKS
+
+[Link to my github](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
+
+#### Images
+![Shrek ggplot](SHREK.jpg)
+
+## Formatted tables
+
+```{r}
+library(knitr)
+kable(mtcars, digits = 3, format = "markdown")
+```
+
+Blockquotes are written after >, e.g.,
+
+I don`t think i did this right :/
+```{r}
+#> "I thoroughly disapprove of duels. If a man should challenge me,
+#  I would take him kindly and forgivingly by the hand and lead him
+#  to a quiet place and kill him."
+#>
+#> --- Mark Twain
+```
+
+
+
+
+
+
+
+
+
+
+
