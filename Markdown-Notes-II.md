@@ -1,0 +1,113 @@
+# Dummy demonstration repository
+
+## Links to analysis
+
+These are the links to the analysis files viewble on GitHub (.md). The
+.RMD files and .HTML rendered files are also available
+
+\#- [Analysis 1](Link%20for%20the%20analysis1)
+
+\#- [Analysis 2]()
+
+I add as a comment, because i couldn\`t find the analysis file in GitHub
+or Canvas, but i know how to put a link on a file, as i did in the other
+annotation.
+
+## File Tree
+
+Install package fs
+
+``` r
+install.packages("fs")
+library(fs)
+fs::dir_tree()
+```
+
+``` bash
+├── 1-s2.0-S2666990024000120-main.pdf
+├── BacterialAlpha.csv
+├── Bull_richness.csv
+├── Chalenge exercise II.nb.html
+├── Chalenge exercise III.nb.html
+├── Chalenge exercise III.Rmd
+├── Chalenge exercise.Rmd
+├── Chalenge-exercise-Amanda.html
+├── Chalenge-exercise-III.html
+├── Chalenge-exercise-III_files
+│   └── figure-html
+├── Coding challenge 4
+├── Data Visualization II Notes- Amanda.R
+├── Data Visualization Notes- Amanda.R
+├── diff_abund.csv
+├── EndophyteBiocontrol-main
+│   ├── Data
+│   │   ├── DON_data.csv
+│   │   ├── EndophyteInVitro.csv
+│   │   └── Volitile.csv
+│   ├── DON.Rmd
+│   ├── invitro.Rmd
+│   ├── LICENSE
+│   └── README.md
+├── EndophyteBiocontrol-main.zip
+├── Exercise 1.R
+├── Markdown annotation                           # Markdown annotation I
+│   ├── Markdown annotation.Rmd
+│   ├── Markdown-annotation.html
+│   ├── Markdown-annotation.md
+│   └── Markdown-annotation_files
+│       ├── figure-gfm
+│       │   ├── Include Figures-1.png
+│       │   └── unnamed-chunk-1-1.png
+│       └── figure-html
+├── Markdown annotation.zip
+├── Markdown code challenging.Rmd
+├── Markdown-code-challenging.html
+├── Markdown-code-challenging.md
+├── Markdown-code-challenging_files               # Code chalenging IV
+│   ├── figure-html
+│   └── figure-markdown_strict
+│       ├── 15ADON Plot-1.png
+│       ├── Don Plot-1.png
+│       ├── Seedmass Plot-1.png
+│       └── Three combined plots-1.png
+├── MycotoxinData.csv                             # Data for chalenge exercises II, III and IV
+├── PCAplot..pdf
+├── PLPA6820-Amanda.Rproj
+├── PLPA6820-Chalenge exercise- Amanda            # Chalenge exercise I
+│   ├── Chalenge exercise.Rmd
+│   └── Chalenge-exercise-Amanda.html
+├── PLPA6820-Chalenge exercise- Amanda.zip
+├── PLPA6820-Challenge exercise II- Amanda        # Chalenge exercise II
+│   ├── Chalenge exercise II.Rmd
+│   ├── Chalenge-exercise-II.html
+│   └── Chalenge-exercise-II_files
+│       └── figure-html
+├── PLPA6820-Challenge exercise II- Amanda.zip    # Chalenge exercise II
+├── PLPA6820-Challenge exercise III- Amanda
+│   ├── Chalenge-exercise-III.html
+│   └── Chalenge-exercise-III_files
+│       └── figure-html
+├── PLPA6820-Challenge exercise III- Amanda.zip   # Chalenge exercise III
+├── README.md
+├── SHREK.jpg                                     #Image Markdown annotation I
+├── SHREK.png                                     # Image MA I in png format
+└── TipsR.csv
+```
+
+I couldn\`t find my working directory by the tree portion.
+
+We can use ZENODO to create a DOI link for GitHub.
+
+## ZENODO Settings
+
+To link a ZENODO with the GitHub we need:
+
+1.  Flip the switch (select the repository and turn on the buttom)
+2.  Create a release (go to GitHub and create a release, zenodo will
+    automatically download a .zip and register a DOI)
+3.  Get the badge (After the release, a DOI badge will appear next to
+    the repository)
+
+# DOI
+
+[![DOI](https://zenodo.org/badge/1140092589.svg)](https://doi.org/10.5281/zenodo.18717896)
