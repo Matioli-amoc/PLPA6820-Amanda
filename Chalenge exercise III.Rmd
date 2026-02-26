@@ -133,6 +133,8 @@ Three.plot <- ggarrange(
 Three.plot
 ```
 
+A- The common.legend function combine the legends from multiple plots into a single shared legend.
+
 5.	5pts. Use geom_pwc() to add t.test pairwise comparisons to the three plots made above. Save each plot as a new R object, and combine them again with ggarange as you did in question 4. Your final plot should look something like this. 
 
 

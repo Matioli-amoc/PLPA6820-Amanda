@@ -3,9 +3,9 @@ title: "Code Challenging IV"
 author: "Amanda Chaves"
 date: "2026-02-19"
 output:
+  md_document:  
   html_document:
     toc: TRUE
-  md_document:  
 ---
 
 [Noel, Z.A., Roze, L.V., Breunig, M., Trail, F. 2022. Endophytic fungi as promising biocontrol agent to protect wheat from Fusarium graminearum head blight. Plant Disease.](https://doi.org/10.1094/PDIS-06-21-1253-RE)
@@ -150,3 +150,8 @@ b.	GitHub flavored markdown (.md file).
 ## Question 6
 
 6.	1 pt. Please turn in the file generated in question 3a to canvas with a clickable link to your GitHub repository within the document. 
+
+[GitHub Repository Link:](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
+
+
+

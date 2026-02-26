@@ -246,3 +246,6 @@ make it more readable for humans.
 
 1.  1 pt. Please turn in the file generated in question 3a to canvas
     with a clickable link to your GitHub repository within the document.
+
+[GitHub Repository
+Link:](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
