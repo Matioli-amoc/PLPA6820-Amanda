@@ -1,0 +1,181 @@
+---
+title: "Loops and functions annotation"
+author: "Amanda Chaves"
+date: "2026-03-17"
+output: html_document
+---
+
+str() # Function that allow us to see the structure of the data
+
+Function to convert Fahrenheit to Celsius:
+
+```{r}
+(5*(f_temp - 32)/9)
+(5*(32 - 32)/9)
+
+# If you want to do more convertions, you need to copy and paste the equation and modify the 
+#degree_f portion into the number of the fahrenheit. We can skip this turning it into a function.
+
+F_to_C <- function(f_temp){
+  celsius <- (5*(f_temp - 32)/9)
+  return(celsius)
+}
+
+F_to_C(32)
+F_to_C(80)
+
+```
+We first start with naming the function something using the backwards arrow. Then we type “function()”.
+
+After opening a new function we type the curly brackets. We will type the code we want to perform within the curly brackets.
+
+Inside the parentheses after function is where we put our variables separated by commas.
+
+sample.function <- function(... variable goes here ...){
+  .... code goes here.... 
+  return(... output ...)
+}
+
+
+# Now you try
+Write a function to convert celsius to fahrenheiht using the conversion of F = C x (9/5)+32
+
+```{r}
+C_to_F <- function(c_temp){
+  fahrenheit <- (c_temp * (9/5)+32)
+  return(fahrenheit)
+}
+
+C_to_F(30)
+C_to_F(-1)
+
+```
+# Iteration functions in base R
+
+```{r}
+ #repetition function
+rep("A", 3)
+rep(c("A", "B"), 10)
+rep(c(1,2,3), 4, each = 5)
+
+#sequence of numbers
+#1:7
+seq(from = 1, to = 7)
+seq(from = 0, to = 10, by = 2)
+
+#Allows you to generate a sequence of numbers based on a non-integer value (character vector).
+# LETTERS
+seq_along(LETTERS)
+
+```
+
+# For Loop
+
+```{r}
+for (i in 1:10){
+  print(i*2)
+}
+```
+
+We can combine functions and iterations
+
+```{r}
+for (i in -30:100){
+  result <- F_to_C(i)
+  print(result)
+}
+```
+
+How we can save an object from a result of a loop?
+
+```{r}
+
+celsius.df <- NULL
+for (i in -30:100){
+  result <- data.frame(F_to_C(i), i)
+  celsius.df <- rbind.data.frame(celsius.df, result)
+}
+
+
+```
+
+
+A more practical example involving fungicide sensitivity data:
+
+```{r}
+library(tidyverse)
+install.packages("drc")
+library(drc)
+EC50.data <- read.csv("EC50_all.csv")
+
+isolate1 <- drm(100* EC50.data$relgrowth[EC50.data$is == "ILSO_5-41c"] ~
+                  EC50.data$conc[EC50.data$is == "ILSO_5-41c"],
+                fct = LL.4(fixed = c(NA, NA, NA, NA),
+                           names = c("Slope", "Lower", "Upper", "EC50")),
+                na.action = na.omit)
+
+#output the summary of paramters including the estimate, standard error, t-value, and p-value outputs it into a data frame called summary.mef.fit for 'summary fit'
+
+summary.fit <- data.frame(summary(isolate1)[[3]])
+
+#outputs the summary of just the EC50 data including the estimate, standard error, upper and lower bounds of the 95% confidence intervals around th eEC50
+
+EC50 <- ED(isolate1, respLev = c(50), type = "relative",
+           interval = "delta")[[1]]
+
+
+```
+How i turn it into a situation that i loop the isolate code?
+
+```{r}
+nm <- unique(EC50.data$is)
+nm
+
+EC50.LL4 <- NULL
+
+for (i in seq_along(nm)) {
+  isolate1 <- drm(100* EC50.data$relgrowth[EC50.data$is == nm[[i]]] ~
+                  EC50.data$conc[EC50.data$is == nm[[i]]],
+                fct = LL.4(fixed = c(NA, NA, NA, NA),
+                           names = c("Slope", "Lower", "Upper", "EC50")),
+                na.action = na.omit)
+  
+  print(nm[[i]])
+  summary.fit <- data.frame(summary(isolate1)[[3]])
+  
+  EC50 <- ED(isolate1, respLev = c(50), type = "relative",
+           interval = "delta")[[1]]
+  isolate.ec_1 <- data.frame(nm[[i]], EC50)
+  EC50.LL4 <- rbind.data.frame(EC50.LL4, isolate.ec_1)
+  EC50
+  
+}
+
+
+
+
+```
+
+Another way to do that is using tidyverse:
+
+```{r}
+EC50.data %>%
+  group_by(is) %>%
+  nest() %>%
+  mutate(ll.4.mod = map(data, ~drm(.$relgrowth ~ .$conc,
+                                   fct = LL.4(fixed = c(NA, NA, NA, NA),
+                                              names = c("Slope", "Lower", "Upper", "EC50"))))) %>%
+  mutate(ec50 = map(ll.4.mod, ~ED(.,
+                                  respLev = c(50),
+                                  type = "relative",
+                                  interval = "delta")[[1]])) %>%
+  unnest(ec50)
+
+
+
+
+```
+
+
+
+
