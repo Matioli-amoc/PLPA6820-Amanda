@@ -3,8 +3,8 @@ title: "Code challenging V"
 author: "Amanda Chaves"
 date: "2026-03-05"
 output: 
-  md_document:
   html_document:
+  md_document:
 ---
 
 This assignment will help you practice integrating some of the tidyverse functions into your R scripts. It will also involve some more practice with GitHub. You may collaborate with a partner to enhance your learning experience. Please ensure the following:
@@ -21,6 +21,7 @@ This assignment will help you practice integrating some of the tidyverse functio
  
 ```{r}
 setwd("C:/Users/amc0369/OneDrive - Auburn University/Documents/AU/2026 SPRING-PLPA6820/Project/PLPA6820-Amanda")
+library(tidyverse)
 DiversityData <- read_csv("DiversityData.csv", na= 'NA')
 Metadata <- read_csv("Metadata.csv", na = 'NA')
 ```
@@ -127,4 +128,4 @@ ggplot(plot, aes(x = Time_Point, y = values, colour = diff, group = diff))+
 
  7.	2 pts. Commit and push a gfm .md file to GitHub inside a directory called Coding Challenge 5. Provide me a link to your github written as a clickable link in your .pdf or .docx
 
-[GitHub link]()
+[GitHub link](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
