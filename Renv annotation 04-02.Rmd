@@ -7,7 +7,10 @@ output:
   html_document:
     toc: TRUE
 ---
+
 # Bonus material assignment
+
+[GitHub Link](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
 
 ## RENV annotation
 

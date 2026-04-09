@@ -376,22 +376,18 @@ annotation:</a></li>
 
 <div id="bonus-material-assignment" class="section level1">
 <h1>Bonus material assignment</h1>
+<p><a href="https://github.com/Matioli-amoc/PLPA6820-Amanda.git">GitHub
+Link</a></p>
 <div id="renv-annotation" class="section level2">
 <h2>RENV annotation</h2>
 <pre class="r"><code>install.packages(&quot;renv&quot;, repos = &quot;https://rstudio.r-universe.dev&quot;)</code></pre>
-<pre><code>## - Querying repositories for available source packages ... Done!
-## The following package(s) will be installed:
+<pre><code>## The following package(s) will be installed:
 ## - renv [1.2.0.9000]
 ## These packages will be installed into &quot;~/AU/2026 SPRING-PLPA6820/Project/PLPA6820-Amanda/renv/library/windows/R-4.5/x86_64-w64-mingw32&quot;.
 ## 
-## # Downloading packages -------------------------------------------------------
-## [?25l  (0/1) Downloading: renv                                                                                                                                       [32m✔[0m renv 1.2.0.9000                          [2.5 MB in 0.54s]
-##                                                                                 Successfully downloaded 1 package in 2.2 seconds.
-## 
 ## # Installing packages --------------------------------------------------------
-## [32m✔[0m renv 1.2.0.9000                          [installed binary in 1.0s]
-## Successfully installed 1 package in 1.4 seconds.
-## [?25h</code></pre>
+## [32m✔[0m renv 1.2.0.9000                          [linked from cache]
+## Successfully installed 1 package in 23 milliseconds.</code></pre>
 <pre class="r"><code>#renv::init() &lt;- write directly on the console source pane.
 #All the library will be writen and a new folder called &quot;renv&quot; will be created in the project directory.</code></pre>
 <p>That will linking packages into the project library. The new folder
@@ -420,14 +416,13 @@ file, because you need to save and ask for renv to update the lockfile
 using snapshot.</p>
 <p>Exemple:</p>
 <pre class="r"><code>install.packages(&quot;paletteer&quot;)</code></pre>
-<pre><code>## - Querying repositories for available source packages ... Done!
-## The following package(s) will be installed:
+<pre><code>## The following package(s) will be installed:
 ## - paletteer [1.7.0]
 ## These packages will be installed into &quot;~/AU/2026 SPRING-PLPA6820/Project/PLPA6820-Amanda/renv/library/windows/R-4.5/x86_64-w64-mingw32&quot;.
 ## 
 ## # Installing packages --------------------------------------------------------
 ## [32m✔[0m paletteer 1.7.0                          [linked from cache]
-## Successfully installed 1 package in 32 milliseconds.</code></pre>
+## Successfully installed 1 package in 13 milliseconds.</code></pre>
 <p>To save you need to do renv::snapshot() into the console source.</p>
 <p>When you fork and clone somebody’s repository, and besides the
 packages are on the renv.lock file, the functions that are into the

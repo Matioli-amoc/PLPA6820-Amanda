@@ -1,5 +1,7 @@
 # Bonus material assignment
 
+[GitHub Link](https://github.com/Matioli-amoc/PLPA6820-Amanda.git)
+
 ## RENV annotation
 
     install.packages("renv", repos = "https://rstudio.r-universe.dev")
@@ -8,14 +10,9 @@
     ## - renv [1.2.0.9000]
     ## These packages will be installed into "~/AU/2026 SPRING-PLPA6820/Project/PLPA6820-Amanda/renv/library/windows/R-4.5/x86_64-w64-mingw32".
     ## 
-    ## # Downloading packages -------------------------------------------------------
-    ## [?25l  (0/1) Downloading: renv                                                                                                                                       [32m✔[0m renv 1.2.0.9000                          [2.5 MB in 0.36s]
-    ##                                                                                 Successfully downloaded 1 package in 1 second.
-    ## 
     ## # Installing packages --------------------------------------------------------
-    ##   (0/1) Installing: renv                                                                                                                                        [32m✔[0m renv 1.2.0.9000                          [installed binary]
-    ## Successfully installed 1 package in 0.74 seconds.
-    ## [?25h
+    ## [32m✔[0m renv 1.2.0.9000                          [linked from cache]
+    ## Successfully installed 1 package in 19 milliseconds.
 
     #renv::init() <- write directly on the console source pane.
     #All the library will be writen and a new folder called "renv" will be created in the project directory.
@@ -62,7 +59,7 @@ Exemple:
     ## 
     ## # Installing packages --------------------------------------------------------
     ## [32m✔[0m paletteer 1.7.0                          [linked from cache]
-    ## Successfully installed 1 package in 12 milliseconds.
+    ## Successfully installed 1 package in 14 milliseconds.
 
 To save you need to do renv::snapshot() into the console source.
 
