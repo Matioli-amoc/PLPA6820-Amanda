@@ -1,0 +1,217 @@
+---
+title: "RENV"
+author: "Amanda Chaves"
+date: "2026-04-02"
+output:
+  md_document:
+  html_document:
+    toc: TRUE
+---
+# Bonus material assignment
+
+## RENV annotation
+
+```{r}
+install.packages("renv", repos = "https://rstudio.r-universe.dev")
+#renv::init() <- write directly on the console source pane.
+#All the library will be writen and a new folder called "renv" will be created in the project directory.
+```
+
+That will linking packages into the project library.
+The new folder called "renv" will shows all the packages already installed.
+Will create a activate.R file, that will have a code to run qhen we need to restore all the packages.
+When we do the initiallization the .gitignore will be reading.
+
+
+The code bellow is on the .Rprofile (the . in front of the file shows that is a hidden file in your computer)
+
+```{r}
+source("renv/activate.R")
+```
+
+If we use the .libPaths() will show us where the package will pull our imputs.Will always try the RPackage first.
+
+The function of renv is for reproducibility of packages versions, because packages changes all the time, so if you are running an project from years ago, there is a possibility that the code will be running through a old version of some packages. Renv will allow the person who are going to reproduce the research to run the code under the same packages versions that was runned before.
+
+If you are running into the project under renv and want to install a new package you just do the same code. The difference is that will ask you if you want to install it. However, just because you intalled it, doesn meant that you can use it on the same environment.
+
+The new installed packeges will not be showen into the renv_lock file, because you need to save and ask for renv to update the lockfile using snapshot.
+
+Exemple:
+```{r}
+install.packages("paletteer")
+```
+To save you need to do renv::snapshot() into the console source.
+
+
+When you fork and clone somebody's repository, and besides the packages are on the renv.lock file, the functions that are into the packages are not automatically installed, so you need to use renv::restore() to restore the project library. 
+
+---------------------------------------------------------------------------------------------
+
+## In class review annotation 
+
+Subset:
+
+```{r}
+mtcars
+```
+
+Subsetting
+
+```{r}
+mtcars[1,4]
+
+# Find all rows such that VS = 1
+mtcars[mtcars$vs == 1,]
+
+mtcars$hp[mtcars$vs == 1]
+
+mtcars$hp[mtcars$vs == 1][1]
+
+mtcars$hp[mtcars$vs == 1 & mtcars$gear == 4]
+
+# Using subset function
+subset(mtcars, vs == 1)
+
+subset(mtcars, vs == 1 & gear == 4)
+
+subset(mtcars, vs == 1 | gear == 4)
+
+
+# Subset with min and max
+max(mtcars$hp)
+min(mtcars$hp)
+
+```
+
+---------------------------------------------------------------------------------
+
+## Bonus material annotation
+
+[More code for putting point on a map](https://github.com/Noel-Lab-Auburn/OomyceteDiversityinAlabamaCotton/blob/main/BiogeographyModeling.R)
+
+### Putting points on a map (addapted from  Zachary Noel - PLPA 6820,)
+
+I chose to learn and explore the video about how to plot points in a map, because i think its very useful for research application, especially in genetics. When we are able to visualize spatial data we can study the distribution of genetic variation and different animal populations across regions. I wanted to learn how to represent the geographic and the genetic patterns together, making it easier to compare the populations and interpret the statistical results.
+
+### Class annotation:
+
+Libraries needed
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+#install.packages("usmap")
+library(usmap)
+#install.packages("maps")
+library(maps)
+#install.packages("mapdata")
+library(mapdata)
+```
+
+Collor pallets
+
+```{r}
+cbbPalette <- c("black", "#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")
+options(dplyr.print_max = 1e9)
+
+```
+
+Read the data
+
+```{r}
+Dairy.mr <- read.csv("Dairy.m.csv")
+
+```
+
+```{r}
+counties <- map_data("county")
+counties$State < toupper(counties$Region)
+
+```
+```{r}
+str(Dairy.mr)
+milk.production.state <- Dairy.mr %>%
+  group_by(State) %>%
+  summarise(mean_milk_production = mean(Milk_production_state, na.rm = TRUE))
+
+milk.production.state$State <- toupper(milk.production.state$State)
+state.data <- map_data("state")
+state.data$State <- toupper(state.data$region)
+
+```
+
+ You can also put states of interest if you want by doing:
+
+state.data2 <- state.data %>%
+  subset(State %in% c("ALABAMA",
+                      "FLORIDA",
+                      "TEXAS", 
+                      "ARKANSAS",
+                      "MISSISSIPPI",
+                      "SOUTH CAROLINA",
+                      "NORTH CAROLINA",
+                      "VIRGINIA",
+                      "LOUISIANA",
+                      "TENNESSEE",
+                      "GEORGIA",
+                      "OKLAHOMA"))
+
+cotton.acres.harvested.bycounty2 <- left_join(counties, cotton.acres.harvested.bycounty, by = c("State", "County"))
+cotton.acres.harvested.bycounty.plot <- cotton.acres.harvested.bycounty2 %>%
+  subset(State %in% c("ALABAMA",
+                      "FLORIDA",
+                      "TEXAS", 
+                      "ARKANSAS",
+                      "MISSISSIPPI",
+                      "SOUTH CAROLINA",
+                      "NORTH CAROLINA",
+                      "VIRGINIA",
+                      "LOUISIANA",
+                      "TENNESSEE",
+                      "GEORGIA",
+                      "OKLAHOMA")) 
+
+And also convert into hectares 
+
+cotton.acres.harvested.bycounty.plot$Hectares <- cotton.acres.harvested.bycounty.plot$mean.acres.harvested*0.404686
+map.points <- seedtreatment.prediction.nona %>%
+  group_by(Long, Lat) %>%
+  tally()
+  
+I'm not interested into doing this for Dairy milk production data, so i just wrote to register what ive learned and for future analysis.
+
+Continuing...
+
+```{r}
+milk.by.state.map <- left_join(state.data, milk.production.state, by = "State")
+
+Fig1 <- ggplot() +
+  geom_polygon(data = milk.by.state.map, 
+               aes(x = long, y = lat, group = group, fill = mean_milk_production),
+               color = "grey", size = 0.2) +
+  geom_polygon(data = milk.by.state.map, 
+               aes(x = long, y = lat, group = group), color = "black", fill = NA) +
+  scale_fill_gradient(low = "#ECFFDC", high = "#4F7942", 
+                      na.value = "white", 
+                      name = "Avg Milk Production (kg)") +
+  theme_minimal() +
+  coord_map("albers", lat0 = 45.5, lat1 = 29.5) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  ggtitle("Average State-level Milk Production in the US") +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
+  )
+Fig1
+```
+
+OBS: I dont have the lat and long of the milk production in each state, but for get the point in the map we use:
+
+geom_point(data = map.points, aes(x = Long, y = Lat, size = n), fill = cbbPalette[[8]], color = "black", alpha = 0.6, shape = 21) +
+
+But i really liked to learn how to use a map to set the average of milk production and i will definitely use it every time i can!
+
+
+
